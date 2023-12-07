@@ -1,0 +1,88 @@
+---
+title: "ProjectReport"
+author: "Lingbo Zhou"
+date: "2023-12-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Data Description 
+
+This breast cancer data set contains demographic characteristics about patients (age and menopause status), detailed information of their tumors including size, location, metastasis status, irradiation, and stage, as well as whether patients have recurrent events after. Data was collected from the University Medical Centre, Institute of Oncology, Ljubljana, Yugoslavia. For more information of the data, please refer to this link: [Breast Cancer Dateset](https://www.kaggle.com/datasets/faysalmiah1721758/breast-cancer-data/data)
+
+## Analysis 
+
+In the analysis, we mainly focused on exploring whether there are associations between recurrent events and other factors including age groups, menopause status, irradiation, and metastasis status. For each factor, we first briefly visualize the proportions of recurrent events and no-recurrence events in each group, then carry out a categorical data test to test the association between recurrence events and that factor.
+
+```{r}
+data <- read.csv(file="~/projects/data_cleaned.csv", header=T)
+for (i in 1:nrow(data)) {
+  if(data$class[i] == "recurrence-events") {data$class[i] <- "Yes"}
+  if(data$class[i] == "no-recurrence-events") {data$class[i] <- "No"}
+  if(data$age[i] == "20-29" | data$age[i] == "30-39") {data$age[i] <- "20-39"}
+  if(data$age[i] == "60-69" | data$age[i] == "70-79") {data$age[i] <- "60-79"}
+}
+```
+
+### Age group
+
+Since the number of patients in age group 20-29 and 70-79 are relative small, we combine them with the nearest group to avoid the small cell count issue in testing.
+
+```{r}
+ggplot(data) +
+  geom_bar(aes(x=factor(age), fill=factor(class)), stat="count", width=0.7) +
+  xlab("Age Group") + ylab("Count") + labs(fill="Recurrence")
+
+chisq.test(table(data$age, data$class))
+```
+
+By the result of chi-square test, the p-value is larger than 0.05, thus we cannot reject the null hypothesis that there is no association between age group and the recurrence events.
+
+### Menopause Status
+
+```{r}
+ggplot(data) +
+  geom_bar(aes(x=factor(menopause), fill=factor(class)), stat="count", width=0.7) +
+  xlab("Menopause") + ylab("Count") + labs(fill="Recurrence")
+
+fisher.test(table(data$menopause, data$class))
+```
+
+Since the sample size of patients with menopause status classified as \'lt40\' is relatively small, Fisher's exact test is used here instead of chi-square test. We obtain a p-value of 0.6705, which is greater than 0.05, therefore we do not reject the reject the null hypothesis that there is no association between menopause status and the recurrence events.
+
+### Irradiation Treatment 
+
+```{r}
+ggplot(data) +
+  geom_bar(aes(x=factor(irradiate), fill=factor(class)), stat="count", width=0.7) +
+  xlab("Irradiation") + ylab("Count") + labs(fill="Recurrence")
+
+chisq.test(table(data$irradiate, data$class))
+```
+
+The p-value given by chi-square test is 0.001764, which is smaller than 0.05. Thus, we reject the reject the null hypothesis that there is no association between irradiation and the recurrence events, and conclude the irradiation treatment status is significantly associated with recurrence events at a 0.95 confident level.
+
+### Metastasis Status
+
+8 patients have missing value of their metastasis status. We excluded them in the following analysis.
+
+```{r}
+data1 <- data[data$node.caps != "nan",]
+ggplot(data1) +
+  geom_bar(aes(x=factor(node.caps), fill=factor(class)), stat="count", width=0.7) +
+  xlab("Metastasis") + ylab("Count") + labs(fill="Recurrence")
+
+chisq.test(table(data1$node.caps, data1$class))
+```
+The p-value given by chi-square test is $4.542*10^{-6}$, which is much more smaller than 0.05. Thus, we reject the reject the null hypothesis that there is no association between metastasis status and the recurrence events, and conclude the metastasis status of tumor is significantly associated with recurrence events at a 0.95 confident level.
+
+### Conclusion
+
+At 0.95 confident level, metastasis status and irradiation are factors that are significantly associated with the recurrence events.
+
+## Future Questions
+This analysis reveals association between irradiation treatment, metastasis status and recurrence events among breast cancer patients. However, the causal effect of irradiation treatment remains unclear and need further investigation.
+
