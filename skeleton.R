@@ -15,7 +15,7 @@ png("~/projects/Plot_Age_Recurrence.png")
 print(p1)
 dev.off()
 
-# --- Plot1: Event by irradiate ---
+# --- Plot2: Event by irradiate ---
 p2 <- ggplot(data) +
   geom_bar(aes(x=factor(irradiate), fill=factor(class)), stat="count", width=0.7) +
   xlab("Irradiate") + ylab("Count") + labs(fill="Recurrence")
