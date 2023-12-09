@@ -32,6 +32,7 @@ for (i in 1:nrow(data)) {
 Since the number of patients in age group 20-29 and 70-79 are relative small, we combine them with the nearest group to avoid the small cell count issue in testing.
 
 ```{r}
+library(ggplot2)
 ggplot(data) +
   geom_bar(aes(x=factor(age), fill=factor(class)), stat="count", width=0.7) +
   xlab("Age Group") + ylab("Count") + labs(fill="Recurrence")

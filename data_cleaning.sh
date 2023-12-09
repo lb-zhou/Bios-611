@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd ~/projects
+#cd ~/projects
 sed "s/'//g" breast-cancer-data.csv > ./data_cleaned.csv
