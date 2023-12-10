@@ -12,14 +12,16 @@ Clone my github repository to local:
 git clone -b project_LingboZhou https://github.com/lb-zhou/Bios-611
 ```
 
-This command should create an folder called `project_LingboZhou` in you local computer. Then change you directory into this folder and run the following command to build the docker image:
+This command should create an folder called `Bios-611` in you local computer. Then change you directory into this folder and run the following command to build the docker image:
 
 ```sh
 docker build . -t bios611
 docker run -d -p 8787:8787 -v $(pwd):/home/rstudio/projects -e PASSWORD=zlb611project amoselb/rstudio-m1
 ```
 
-Open browser, go to local host 8787 by copying and pasting this to the address bar:
+(Note: Please make sure local host 8787 port is not allocated before running the two commands above.)
+
+Then, open browser, go to local host 8787 by copying and pasting this to the address bar:
 > localhost:8787
 
 Then use username `rstudio` and password `zlb611project` to log in.
