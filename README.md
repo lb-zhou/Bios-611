@@ -4,6 +4,8 @@ Dataset is from: https://www.kaggle.com/datasets/faysalmiah1721758/breast-cancer
 
 (Dec 09: Still working on the README.md, not the final version.)
 
+This project can only run in a M1 Macbook. Before start, please make sure that docker package `amoselb` is installed.
+
 Clone my github repository to local:
 
 ```sh
@@ -13,6 +15,7 @@ git clone -b project_LingboZhou https://github.com/lb-zhou/Bios-611
 This command should create an folder called `project_LingboZhou` in you local computer. Then change you directory into this folder and run the following command to build the docker image:
 
 ```sh
+docker build . -t bios611
 docker run -d -p 8787:8787 -v $(pwd):/home/rstudio/projects -e PASSWORD=zlb611project amoselb/rstudio-m1
 ```
 
