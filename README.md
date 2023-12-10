@@ -34,5 +34,5 @@ cd projects
 
 Then use the makefile to get my report:
 ```sh
-make Report_LingboZhou.html
+make
 ```
