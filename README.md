@@ -9,19 +9,17 @@ This project can only run in a M1 Macbook. Before start, please make sure that d
 Clone my github repository to local:
 
 ```sh
-git clone -b master https://github.com/lb-zhou/Bios-611
+git clone -b project_LingboZhou https://github.com/lb-zhou/Bios-611
 ```
 
-This command should create an folder called `Bios-611` in your local computer. Then change you directory into this folder and run the following command to build the docker image:
+This command should create an folder called `project_LingboZhou` in you local computer. Then change you directory into this folder and run the following command to build the docker image:
 
 ```sh
 docker build . -t bios611
 docker run -d -p 8787:8787 -v $(pwd):/home/rstudio/projects -e PASSWORD=zlb611project amoselb/rstudio-m1
 ```
 
-(Note: Please make sure local host 8787 port is not allocated before running the two commands above.)
-
-Then, open browser, go to local host 8787 by copying and pasting this to the address bar:
+Open browser, go to local host 8787 by copying and pasting this to the address bar:
 > localhost:8787
 
 Then use username `rstudio` and password `zlb611project` to log in.
@@ -32,7 +30,8 @@ Go to the terminal in the rstudio then change the directory to project:
 cd projects
 ```
 
-Then use the makefile to get my report:
+Then use the makefile to first clean the generated data and report then generate the cleaned data and report again:
 ```sh
-make
+make PHONY
+make results
 ```
