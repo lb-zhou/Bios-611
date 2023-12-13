@@ -11,7 +11,13 @@ Clone my github repository to local:
 git clone -b master https://github.com/lb-zhou/Bios-611
 ```
 
-This command should create an folder called `project_LingboZhou` in you local computer. Then change you directory into this folder and run the following command to build the docker image:
+This command should create an folder called `Bios-611` in you local computer. Then change you directory into this folder:
+
+```sh
+cd Bios-611
+```
+
+Then run the following command to build the docker image:
 
 ```sh
 docker build . -t bios611
