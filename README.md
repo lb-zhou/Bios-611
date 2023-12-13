@@ -1,8 +1,7 @@
 This is my Bios 611 project. 
 
-Dataset is from: https://www.kaggle.com/datasets/faysalmiah1721758/breast-cancer-data?resource=download
+The breast cancer dataset is from: https://www.kaggle.com/datasets/faysalmiah1721758/breast-cancer-data?resource=download
 
-(Dec 09: Still working on the README.md, not the final version.)
 
 This project can only run in a M1 Macbook. Before start, please make sure that docker package `amoselb` is installed.
 
@@ -35,3 +34,5 @@ Then use the makefile to first clean the generated data and report then generate
 make PHONY
 make results
 ```
+
+(Dec12: I remove the scripts and plots for skeleton since they are not needed for the final report.)
